@@ -1,0 +1,35 @@
+{
+	"info": {
+		"_postman_id": "7b12a927-9cc2-44cb-b201-7ea1441a722c",
+		"name": "Busca de Operadoras de Saúde",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32420203"
+	},
+	"item": [
+		{
+			"name": "Buscar Operadora",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/search?query=Odontologia de Grupo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"search"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "Odontologia de Grupo"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -83,7 +83,7 @@ Para executar corretamente:
 
 ## 🖥️ Preview da Aplicação  
 
-![Preview da Aplicação](../Intuitive-Care-Teste-De-Nivelamento/teste-de-api-interface/src/assets/intuitive.png)
+![Preview da Aplicação](./teste-de-api-interface/src/assets/intuitive.png)
 
 - Não irei colocar preview com os resultados pois contém dados confidenciais.
 

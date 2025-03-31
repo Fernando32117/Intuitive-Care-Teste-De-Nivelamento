@@ -56,7 +56,7 @@ Ao executar o arquivo `teste_banco.py`, são realizadas as seguintes funcionalid
    - Os dados baixados são armazenados na pasta `downloads_ftp`, organizados por ano. O arquivo `Relatorio_cadop.csv` é armazenado na subpasta `operadoras`.
 
 2. **Queries**
-   - Scripts SQL compatíveis com **MySQL 8** e **PostgreSQL >10** foram desenvolvidos na pasta `scripts`:
+   - Scripts SQL compatíveis com **PostgreSQL >10** foram desenvolvidos na pasta `scripts`, as queries do arquivo `queries.sql` foram desenvolvidas a partir do arquivo dicionário de cada link das páginas informadas e adaptado para os dados do arquivo `Relatorio_cadop.csv`:
      - `queries.sql` (modelo para estruturar e importar dados).
      - `analise_ano.sql` e `analise_trimestre.sql` (modelo de queries analíticas para responder às perguntas do item 3.5 do teste).
 

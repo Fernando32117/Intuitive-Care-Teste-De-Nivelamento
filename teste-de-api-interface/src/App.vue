@@ -45,30 +45,32 @@
 
 .img {
   display: block;
-  margin: 50px auto;
-  width: 500px;
-  height: 100px;
+  margin: 30px auto;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
   border: 4px solid rgb(107, 57, 168);
   border-radius: 10px;
   padding: 5px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-
 h1 {
   text-align: center;
   color: rgb(107, 57, 168);
-  font-size: 2.5rem;
+  font-size: 2.2rem;
 }
 
 p {
   color: #555;
+  font-size: 1rem;
 }
 
 .search-container {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 .search-input {
@@ -84,7 +86,6 @@ p {
 .search-input:focus {
   border-color: rgb(107, 57, 168);
   outline: none;
-  /* Remove contorno padrão do navegador */
 }
 
 .search-button {
@@ -106,7 +107,7 @@ h2 {
   text-align: center;
   color: rgb(200, 164, 244);
   margin-top: 30px;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
 }
 
 .search-results {
@@ -117,7 +118,7 @@ h2 {
 .result-item {
   background: linear-gradient(110deg, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2));
   margin: 15px 0;
-  padding: 20px;
+  padding: 15px;
   border-radius: 5px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s;
@@ -129,14 +130,59 @@ h2 {
 
 .result-title {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   color: rgb(107, 57, 168);
 }
 
 strong {
   color: rgb(0, 0, 0);
 }
+
+/* Responsividade para telas menores */
+@media screen and (max-width: 768px) {
+  #app {
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  .img {
+    width: 90%;
+    height: auto;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+
+  .search-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .search-input {
+    max-width: 90%;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .search-button {
+    max-width: 90%;
+  }
+
+  .result-title {
+    font-size: 1.2rem;
+  }
+}
 </style>
+
 
 <script>
 export default {

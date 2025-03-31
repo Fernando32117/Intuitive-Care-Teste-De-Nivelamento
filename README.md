@@ -81,6 +81,12 @@ Para executar corretamente:
 1. **Inicie a interface Vue.js** dentro da pasta `teste-de-api-interface`.
 2. **Execute o arquivo `app.py`** dentro da pasta `TESTE-DE-API` para que a API processe as buscas.
 
+## 🖥️ Preview da Aplicação  
+
+![Preview da Aplicação](../Intuitive-Care-Teste-De-Nivelamento/teste-de-api-interface/src/assets/intuitive.png)
+
+- Não irei colocar preview com os resultados pois contém dados confidenciais.
+
 ---
 
 ## Observação

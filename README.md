@@ -7,6 +7,8 @@ Este repositório contém a implementação dos testes de nivelamento, abordando
 - **Teste de Banco de Dados**
 - **Teste de API**
 
+**Opcional:** Antes de executar os arquivos `.py`, você pode excluir as pastas `downloads`, `resultados` e `downloads_ftp` para visualizar o sistema realizando as tarefas solicitadas.
+
 ---
 
 ## 1. TESTE DE WEB SCRAPING
@@ -60,7 +62,7 @@ Ao executar o arquivo `teste_banco.py`, são realizadas as seguintes funcionalid
 
 ### 3.1 - TESTE DE BANCO DE DADOS - Arquivo `connect_banco.py`
 
-Ao configurar e executar o arquivo `connect_banco.py`, são realizadas as seguintes funcionalidades:
+Ao configurar o arquivo `.env` com suas credenciais e executar o arquivo `connect_banco.py`, são realizadas as seguintes funcionalidades:
 
 1. **Conexão com o PostgreSQL**
    - O arquivo `connect_banco.py` é configurado para se conectar ao **PostgreSQL**.
@@ -86,6 +88,8 @@ Para executar corretamente:
 ![Preview da Aplicação](./teste-de-api-interface/src/assets/intuitive.png)
 
 - Não irei colocar preview com os resultados pois contém dados confidenciais.
+
+3. **Coleção Postman** no arquivo `Busca de Operadoras de Saúde.postman_collection.json` para demonstrar o resultado da busca por `Odontologia de Grupo`.
 
 ---
 

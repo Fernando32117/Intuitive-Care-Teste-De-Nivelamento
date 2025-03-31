@@ -1,43 +1,67 @@
-from dotenv import load_dotenv
+from dotenv import load_dotenv  
 import psycopg2  
-import csv 
-import os 
+import csv   
+import os   
 
-# Carrega variáveis do arquivo .env
-load_dotenv()
+# Carrega variáveis do arquivo .env  
+load_dotenv()  
 
-# Obtendo credenciais do banco de dados
-host = os.getenv('DB_HOST')
-dbname = os.getenv('DB_NAME')
-user = os.getenv('DB_USER')
-password = os.getenv('DB_PASSWORD')
+# Obtendo credenciais do banco de dados  
+host = os.getenv('DB_HOST')  
+user = os.getenv('DB_USER')  
+password = os.getenv('DB_PASSWORD')  
+dbname = os.getenv('DB_NAME') 
 
 # Inicialização das variáveis  
 conn = None  
-cursor = None 
+cursor = None   
 
-# Conexão ao banco de dados
-try:
-    conn = psycopg2.connect(
-        host=host,
-        dbname=dbname,
-        user=user,
-        password=password,
-        options="-c client_encoding=utf8"
-    )
-    print("Conexão ao banco de dados bem-sucedida!")
-except Exception as e:
-    print(f"Erro ao conectar ao banco de dados: {e}") 
+# Função para criar o banco de dados  
+def create_database(dbname):  
+    # Conectando à instância do PostgreSQL sem um banco de dados específico  
+    connection = psycopg2.connect(  
+        host=host,  
+        user=user,  
+        password=password  
+    )  
+    connection.autocommit = True   
+    cursor = connection.cursor()  
+    
+    # SQL para criar o banco de dados se não existir  
+    create_db_query = f"CREATE DATABASE {dbname};"  
+    
+    try:  
+        cursor.execute(create_db_query)  
+        print(f"Banco de dados '{dbname}' criado com sucesso!")  
+    except psycopg2.errors.DuplicateDatabase:  
+        print(f"O banco de dados '{dbname}' já existe.")  
+    finally:  
+        cursor.close()  
+        connection.close()  
 
+# Criar o banco de dados se não existir  
+try:  
+    create_database(dbname)  
+    
+    # Agora tente conectar ao banco de dados recém-criado  
+    conn = psycopg2.connect(  
+        host=host,  
+        dbname=dbname,  
+        user=user,  
+        password=password,  
+        options="-c client_encoding=utf8"  
+    )  
+    print("Conexão ao banco de dados bem-sucedida!")  
+    
     # Criação de um cursor  
     cursor = conn.cursor()  
 
-    # SQL para criar tabela se não existir  
-    create_table_query = '''  
+    # SQL para criar a tabela operadoras se não existir  
+    create_operadoras_table_query = '''  
     CREATE TABLE IF NOT EXISTS operadoras (  
         id SERIAL PRIMARY KEY,  
-        registro_ans VARCHAR(20),  
-        cnpj VARCHAR(14) UNIQUE, 
+        registro_ans VARCHAR(20) UNIQUE,  
+        cnpj VARCHAR(14),   
         razao_social VARCHAR(255),  
         nome_fantasia VARCHAR(255),  
         modalidade VARCHAR(50),  
@@ -58,14 +82,13 @@ except Exception as e:
         data_registro_ans DATE  
     );  
     '''  
-
-    # Executar a query de criação de tabela  
-    cursor.execute(create_table_query)  
+    # Executar a query de criação de tabela operadoras  
+    cursor.execute(create_operadoras_table_query)  
     conn.commit()  
-    print("Tabela 'operadoras' criada ou já existe!")  
+    print("Tabela 'operadoras' criada ou já existe!")    
 
     # Caminho para o arquivo CSV  
-    csv_file_path = 'downloads_ftp/operadoras/Relatorio_cadop.csv'  
+    csv_file_path = 'downloads_ftp/operadoras/Relatorio_cadop.csv'
 
     # Importar o conteúdo do arquivo CSV  
     with open(csv_file_path, 'r', encoding='utf-8') as f:  
@@ -102,7 +125,7 @@ except Exception as e:
                                         ddd, telefone, fax, endereco_eletronico, representante,  
                                         cargo_representante, regiao_de_comercializacao, data_registro_ans)  
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                ON CONFLICT (registro_ans) DO NOTHING  
+                ON CONFLICT (cnpj) DO NOTHING 
             ''', (  
                 registro_ans, cnpj, razao_social, nome_fantasia, modalidade, logradouro, numero, complemento, bairro, cidade, uf, cep,  
                 ddd, telefone, fax, endereco_eletronico, representante,  
@@ -110,7 +133,24 @@ except Exception as e:
             ))  
 
     conn.commit()  
-    print("Dados importados com sucesso do CSV!")  
+    print("Dados importados com sucesso do 'Relatorio_cadop.csv' !")
+    
+    # SQL para criar a tabela despesas se não existir  
+    create_despesas_table_query = '''  
+    CREATE TABLE IF NOT EXISTS despesas (  
+        id SERIAL PRIMARY KEY,  
+        data DATE,  
+        reg_ans VARCHAR(20),  
+        cd_conta_contabil VARCHAR(255),  
+        descricao VARCHAR(255),  
+        vl_saldo_inicial DECIMAL(15, 2),   
+        vl_saldo_final DECIMAL(15, 2) 
+    );  
+    ''' 
+    # Executar a query de criação de tabela despesas  
+    cursor.execute(create_despesas_table_query)  
+    conn.commit()  
+    print("Tabela 'despesas' criada ou já existe!")
 
 except Exception as e:  
     print(f"Ocorreu um erro: {e}")  
